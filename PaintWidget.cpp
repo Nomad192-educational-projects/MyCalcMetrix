@@ -12,7 +12,6 @@ PaintWidget::PaintWidget(QWidget *parent, double *data, unsigned int numberYears
     this->max = max;
     this->min = min;
     this->firstYear = firstYear;
-
 }
 
 void PaintWidget::paintEvent(QPaintEvent *e) {
@@ -53,13 +52,15 @@ void PaintWidget::doPainting() {
 
 
 
-    p.setPen (QPen(Qt::blue,Qt::SolidLine)); //цвет и тип пера
+    //p.setPen (QPen(Qt::blue,Qt::SolidLine));
 
-    p.setPen (QPen(Qt::red,Qt::SolidLine));
+    //p.setPen (QPen(Qt::red,Qt::SolidLine));
+
+
     QFont font("Arial",-1,-1, false);
     font.setPixelSize(10);
     p.setFont(font); //зададим свойства шрифта
-    p.setPen (QPen(QColor(0,100,50,255),Qt::SolidLine));
+    p.setPen (QPen(QColor(0,100,50,255),Qt::SolidLine)); //цвет и тип пера
 
     int h_text = 10, w_text = this->width()/numberYears;
     qDebug() << w_text;
@@ -95,11 +96,11 @@ void PaintWidget::doPainting() {
         qDebug() << "isinf(" << this->data[i] << ")=" << isinf(this->data[i]);
         if(!isinf(this->data[i]))
         {
-            p.drawPoint(w_text + w_text*i + w_text/2, (max-this->data[i])/(max - min)*(yMin - yMax));
+            p.drawPoint(w_text + w_text*i + w_text/2, yMax+5+(max-this->data[i])/(max - min)*(yMin - 5 - yMax));
             qDebug() << this->data[i] << " " << (max-this->data[i])/(max - min)*(yMin - yMax);
             if (!isinf(this->data[i-1]))
             {
-                p.drawLine(w_text + w_text*(i-1) + w_text/2, (max-this->data[i-1])/(max - min)*(yMin - yMax), w_text + w_text*i + w_text/2, (max-this->data[i])/(max - min)*(yMin - yMax));
+                p.drawLine(w_text + w_text*(i-1) + w_text/2, yMax+5+(max-this->data[i-1])/(max - min)*(yMin - 5 - yMax), w_text + w_text*i + w_text/2, yMax+5+(max-this->data[i])/(max - min)*(yMin - 5 - yMax));
             }
             else
             {

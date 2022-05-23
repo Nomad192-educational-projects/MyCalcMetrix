@@ -7,7 +7,7 @@
 class PaintWidget : public QWidget
 {
 public:
-    PaintWidget(QWidget *parent = nullptr, double *data = nullptr, unsigned int numberYears = 0, double max=0, double min=0, unsigned int firstYear=1900);
+    PaintWidget(QWidget *parent, double *data = nullptr, unsigned int numberYears = 0, double max=0, double min=0, unsigned int firstYear=1900);
 
   protected:
     void paintEvent(QPaintEvent *e);
@@ -17,7 +17,7 @@ public:
     unsigned int numberYears;
     double max;
     double min;
-    double firstYear;
+    unsigned int firstYear;
     void doPainting();
 };
 

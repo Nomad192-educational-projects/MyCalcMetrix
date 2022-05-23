@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow(){
     delete ui; //удаляем копию класса ui
     delete[] data;
+    delete graph_paint;
 }
 
 void MainWindow::on_pushButton_file_clicked(){ //функция отклика open file
@@ -53,22 +54,25 @@ void MainWindow::on_pushButton_file_clicked(){ //функция отклика o
 }
 
 void MainWindow::on_pushButton_calc_metr_clicked(){
-    ifstream file;
     unsigned int metrix = ui->comboBox_column_number->currentText().toInt() - 1;
     unsigned republic = ui->comboBox_region->currentIndex();
     inMetrix in = {republic, metrix, numberLines, (unsigned int)republics.size()};
     outMetrix out;
+
+    delete[] data;
     data = new double[in.numberYears];
     interfaceBundle(CALC_METR, &in, &out, data, NULL, &dateVector);
     ui->textBrowser_max->setText(QString::number(out.max));
     ui->textBrowser_med->setText(QString::number(out.med));
     ui->textBrowser_min->setText(QString::number(out.min));
 
-    PaintWidget *myWidget;
+
+
     unsigned int firstYear = stoi(dateVector[1][0]);
-    myWidget = new PaintWidget(ui->widget, data, in.numberYears, out.max, out.min, firstYear);
-    myWidget->resize(ui->widget->width(), ui->widget->height());
-    myWidget->show();
+    delete graph_paint;
+    graph_paint = new PaintWidget(ui->widget, data, in.numberYears, out.max, out.min, firstYear);
+    graph_paint->resize(ui->widget->width(), ui->widget->height());
+    graph_paint->show();
 }
 
 void MainWindow::forForColumnNumber(){

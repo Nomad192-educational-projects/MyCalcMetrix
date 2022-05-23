@@ -33,6 +33,7 @@ private:
     vector <string> republics;
     vector <vector<string>> dateVector;
     double *data = nullptr;
+    PaintWidget *graph_paint = nullptr;
     void reset();
     void createItem(std::string str, int row, int column);
     void outputTable();
